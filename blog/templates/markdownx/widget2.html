@@ -1,0 +1,14 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static "/css/code/friendly.css" %}">
+<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap-grid.min.css">
+<link rel="stylesheet" type="text/css" href="{% static "/css/self/blogadmin.css" %}">
+
+<div class="markdownx row">
+    <div class="col-md-6">
+        {% include 'django/forms/widgets/textarea.html' %}
+    </div>
+    <div class="col-md-6">
+        <div class="markdownx-preview"></div>
+    </div>
+</div>
