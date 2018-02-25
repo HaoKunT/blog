@@ -3,15 +3,11 @@
 {% block content %}
 <div class="post">
     <section class="post">
-            <header class="post-header">
-                <h2 class="post-title">关于</h2>
-            </header>
-
-                <div class="post-description">
-                    <p>
-                        {{ content }}
-                    </p>
-                </div>
-        </section>
+        <div class="post-description">
+            <p>
+                {{ content | safe }}
+            </p>
+        </div>
+    </section>
 </div>
 {% endblock %}
