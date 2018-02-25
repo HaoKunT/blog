@@ -41,3 +41,9 @@ def Detail(request,id):
         'markdown.extensions.toc',
     ])
     return render(request, 'blog/post.html', {'post':post})
+
+def aboutme(request):
+    content = """
+    本人为武汉大学本科生，专业为地理国情监测，喜好计算机技术，对web，GIS，Linux，SQL均有涉猎。
+    """
+    return  render(request, 'blog/aboutme.html', {'content' : content})
