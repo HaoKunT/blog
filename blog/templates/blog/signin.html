@@ -1,0 +1,22 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+    {% if wrong %}
+        <p class="error">用户名或密码不正确</p>
+    {% endif %}
+    <form class="pure-form pure-form-stacked" action="{% url "blog_signinfun" %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <legend>登录</legend>
+
+        <label for="username">Username</label>
+        <input id="username"  placeholder="用户名" name="username">
+
+        <label for="password">Password</label>
+        <input id="password" type="password" placeholder="密码" name="password">
+
+
+        <button type="submit" class="pure-button pure-button-primary">登录</button>
+    </fieldset>
+</form>
+{% endblock %}

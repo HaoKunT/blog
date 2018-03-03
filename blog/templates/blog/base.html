@@ -6,7 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="HaoKun T's Blog">
     <title>HaoKun T's Blog</title>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+    <link rel="shortcut icon" href="{% static "/favicon.ico" %}">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.1/build/pure-min.css">
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
     <link rel="stylesheet" href="{% static "/css/flat-ui/flat-ui.css" %}">
     <link rel="stylesheet" href="{% static "/css/self/blog.css" %}">
@@ -43,12 +44,12 @@
     </div>
 
 
-    <div class="content pure-u-1 pure-u-md-3-4">
+
+    <div class="content pure-u-1 pure-u-md-2-3">
         <div>
             {% block content %}
             {% endblock %}
             <div class="footer">
-
                 <div class="pure-menu pure-menu-horizontal pure-menu-open">
                     <ul class="pure-menu-list">
                         <li class="pure-menu-item"><a href="{% url 'blog_aboutme' %}" class="pure-menu-link" style="background: grey">About Me</a></li>
@@ -58,6 +59,27 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="pure-u-1 pure-u-md-1-12">
+        {% if isLogin %}
+            <div class="pure-menu pure-menu-horizontal">
+                <ul class="pure-menu-list">
+                    <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                        <a href="#" class="pure-menu-link">{{ username }}</a>
+                        <ul class="pure-menu-children">
+                            <li class="pure-menu-item"><a href="{% url "blog_logout" %}" class="pure-menu-link">注销</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        {% else %}
+            <div class="pure-menu pure-menu-horizontal">
+                <a href="{% url "blog_signin" %}" class="pure-menu-heading pure-menu-link pure-button">登录</a>
+                <ul class="pure-menu-list">
+                    <li class="pure-menu-item"><a href="{% url "blog_signup" %}" class="pure-menu-link pure-button">注册</a></li>
+                </ul>
+            </div>
+        {% endif %}
     </div>
 </div>
 

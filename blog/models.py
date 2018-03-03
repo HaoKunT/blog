@@ -17,4 +17,17 @@ class Article(models.Model):
         ordering = ['-pub_date']
         verbose_name = "文章"
         verbose_name_plural = "文章"
-    
+
+class Comment(models.Model):
+    content = models.CharField("评论内容", max_length=1024)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    com_time = models.DateTimeField("评论日期", auto_now_add=True, editable=True)
+    par_comment = models.ForeignKey('self', on_delete=models.CASCADE)
+
+    def __unicode__(self):
+        return self.content
+
+    class Meta:
+        ordering = ['-com_time']
+        verbose_name = "评论"
+        verbose_name_plural = "评论"
