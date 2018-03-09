@@ -15,3 +15,7 @@
 ## 2018.02.26
 1. add language(or some frame) card.
 2. add markdown image
+
+## 2018.03.02
+1. ~~completed the auth sign in and sign up and logout system.~~
+2. complete the comment system

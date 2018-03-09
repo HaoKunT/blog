@@ -10,8 +10,8 @@ class Article(models.Model):
     update_time = models.DateTimeField("更新日期", auto_now=True, editable=True)
     content = MarkdownxField(blank=True, null=True)
 
-    def __unicode__(self):
-        return  self.title
+    def __str__(self):
+        return self.title
 
     class Meta:
         ordering = ['-pub_date']
@@ -20,11 +20,11 @@ class Article(models.Model):
 
 class Comment(models.Model):
     content = models.CharField("评论内容", max_length=1024)
-    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, to_field='id', verbose_name="所属文章")
     com_time = models.DateTimeField("评论日期", auto_now_add=True, editable=True)
-    par_comment = models.ForeignKey('self', on_delete=models.CASCADE)
+    par_comment = models.ForeignKey('self', on_delete=models.CASCADE, null=True, to_field='id', verbose_name="父评论")
 
-    def __unicode__(self):
+    def __str__(self):
         return self.content
 
     class Meta:
