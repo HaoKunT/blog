@@ -14,12 +14,17 @@ sign_urls_patterns = [
     path('logout', views.logout_view, name="blog_logout")
 ]
 
+comment_urls_patterns = [
+    path('testcomment', views.testcomment),
+]
+
 urlpatterns = [
     path('post/<int:id>/', views.Detail, name='blog_detail'),
     path('home/', views.home, name='blog_home'),
     path('home/<int:id>/', views.home, name='blog_home_page'),
     path('aboutme/', views.aboutme, name='blog_aboutme'),
     path('search/', include(search_urls_patterns)),
-    path('sign/', include(sign_urls_patterns))
+    path('sign/', include(sign_urls_patterns)),
+    path('comments/', include(comment_urls_patterns)),
 ]
 

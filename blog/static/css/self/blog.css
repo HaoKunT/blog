@@ -56,6 +56,12 @@ h3 {
     font-size: large;
 }
 
+.nav {
+    background: rgb(61, 79, 93);
+    color: #fff;
+    box-shadow: none;
+}
+
 .nav-list {
     margin: 0;
     padding: 0;

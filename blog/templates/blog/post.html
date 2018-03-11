@@ -1,34 +1,96 @@
 {% extends "blog/base.html" %}
- 
+
 {% block content %}
-        {% load staticfiles %}
+    {% load staticfiles %}
 
     <link rel="stylesheet" href="{% static "/css/code/friendly.css" %}">
-<div class="posts">
+    <div class="posts">
         <section class="post">
             <header class="post-header">
                 <h2 class="post-title">{{ post.title }}</h2>
- 
-                    <p class="post-meta">
-                        创建时间：<a href="#" class="post-author">{{ post.pub_date |date:'Y/m/d'}}</a>
-                        更新时间:  <a class="post-author" href="#">{{ post.update_time |date:'Y/m/d'}}</a>
-                        <p class="post-meta">
-                        类别： <a class="post-category post-category-js" href="#">{{ post.category }}</a>
-                        </p>
-                    </p>
-            </header>
- 
-                <div class="post-description">
-                    {{ post.content|safe }}
-                </div>
-        </section>
-</div><!-- /.blog-post -->
-    <!-- Comment -->
-    <div class="post">
-    <section class="post">
-        <header class="post-header">
 
-        </header>
-    </section>
+                <p class="post-meta">
+                    创建时间：<a href="#" class="post-author">{{ post.pub_date |date:'Y/m/d'}}</a>
+                    更新时间:  <a class="post-author" href="#">{{ post.update_time |date:'Y/m/d'}}</a>
+                <p class="post-meta">
+                    类别： <a class="post-category post-category-js" href="#">{{ post.category }}</a>
+                </p>
+                </p>
+            </header>
+
+            <div class="post-description">
+                {{ post.content|safe }}
+            </div>
+        </section>
+    </div><!-- /.blog-post -->
+    <!-- Comment -->
+    <div class="comments--news comments--default comments--article">
+        <div class="mb10 clearfix">
+            <strong class="comments-stat pull-left mr10">{{ comments_list.count }}条评论</strong>
+        </div>
+        <div class="comments-container">
+            <div class="comments-list">
+                {% for comment in comments_list %}
+                    <div class="comments-item">
+                        <div class="comments-content">
+                            <div class="comment-trigger">
+                                <strong>{{ comment.comment_user }}</strong>
+                                {% if comment.is_author%}
+                                    <span class="comments-isAuthor">作者</span>
+                                {% else %}
+                                    <span class="comments-isAuthor hide"></span>
+                                {% endif %}
+                                <span class="comments-date">  ·  {{ comment.com_time | date:'Y/m/d' }}</span>
+                            </div>
+
+                            <p>{{ comment.content }}</p>
+                            <ul class="collapsible" data-collapsible="accordion">
+                                <li>
+                                    <div class="collapsible-header" style="width: auto">
+                                        <p>回复</p>
+                                    </div>
+                                    <div class="collapsible-body">
+
+
+                                        <form class="reply-form" action="/blog/comments/{{ comment.id }}/addreply">
+                                            <button type="button" class="btn btn-default pull-right reply-btn">添加回复</button>
+                                            <div class="form-group"  style="display: inline-block; width: 75%">
+                                                <textarea style="min-height: 35px; max-height: 132px; overflow: hidden; word-wrap: break-word; height: 32px;" name="text" class="form-control reply-text" rows="1" placeholder="文明社会，理性评论"></textarea>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <div class="reply-list">
+                                {% for reply in comment.comment_set.all %}
+                                    <div class="reply-item">
+                                        <div class="reply-content-block">
+                                            <div class="reply-content"><p>{{ reply.content }}</p></div>
+                                            <div class="comment-func inline-block">
+                                    <span class="comment-meta inline-block">
+                                        <span> — </span>
+
+                                            <strong>{{ reply.comment_user }}</strong>
+
+                                        {% if reply.is_author%}
+                                            <span class="comments-isAuthor">作者</span>
+                                        {% else %}
+                                            <span class="comments-isAuthor hide"></span>
+                                        {% endif %}
+                                        <span class="text-muted-plus">  ·  {{ reply.com_time | date:'Y/m/d' }}</span>
+                                                                            </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 {% endblock %}

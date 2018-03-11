@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.core.paginator import Paginator, EmptyPage #实现分页功能
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User, Group
@@ -70,8 +70,18 @@ def Detail(request,id):
         'markdown.extensions.sane_lists',
         'markdown.extensions.nl2br',
     ])
+
+    comments_list = post.comment_set.filter(par_comment=None)
+
+
+
+
+
+
+
     context = isLogin(request)
     context['post'] = post
+    context['comments_list'] = comments_list
     return render(request, 'blog/post.html', context)
 
 # 关于部分
@@ -139,7 +149,7 @@ def search(request,id="1"):
     context['post_list'] = posts
     context['pages'] = pages
     context['request'] = request
-    return render(request, 'blog/search.html', {'post_list': posts, 'pages': pages, 'request': request})
+    return render(request, 'blog/search.html', context)
 
 # 返回登录界面
 def signinhtml(request):
@@ -232,3 +242,7 @@ def logout_view(request):
     #清理cookie里保存username
     logout(request)
     return HttpResponseRedirect('/blog/home')
+
+# test comment
+def testcomment(request):
+    return render(request, 'blog/comment.html')
